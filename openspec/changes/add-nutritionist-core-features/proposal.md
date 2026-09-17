@@ -7,14 +7,16 @@ Atualmente, nutricionistas gerenciam cadastros de pacientes, planos alimentares 
 ## O Que Muda
 
 - Adiciona contas de nutricionista com autenticação; cada nutricionista só pode ver e gerenciar seus próprios pacientes (multi-tenant).
+- Adiciona ao cadastro do nutricionista um campo opcional de empresa/clínica, uma política mínima de senha (8+ caracteres, letra e número), tratamento de e-mail como único de forma case-insensitive, login alternativo via conta Google (com criação automática de conta ou vínculo a uma conta existente, preservando o perfil já cadastrado) e consulta dos próprios dados de perfil.
 - Adiciona cadastro e gestão de pacientes (criar, visualizar, atualizar, desativar pacientes) vinculados ao nutricionista responsável.
 - Adiciona prescrição de dieta: um nutricionista pode criar um plano alimentar/dieta ("receita") para um paciente, composto por refeições e itens alimentares, e exportá-lo como um documento PDF.
+- Adiciona o fluxo de montagem da receita por refeições: cadastro de refeições com nome padrão sequencial (renomeável), busca de alimentos já cadastrados com opção de cadastro rápido quando não encontrados, seleção do tipo de quantidade do item ("unidade" ou "porção em gramas") com o respectivo valor numérico, observação opcional por item, e edição da receita depois de criada.
 - Adiciona acompanhamento de avaliação física: registrar peso, medidas de dobras cutâneas (protocolo de Pollock de 7 dobras) e circunferências de segmentos corporais para um paciente, manter um histórico completo de avaliações, e comparar duas avaliações quaisquer para evidenciar a evolução ao longo do tempo.
 
 ## Capacidades
 
 ### Novas Capacidades
-- `nutritionist-auth`: Cadastro de conta do nutricionista, login/autenticação, e controle de acesso baseado em sessão para que cada nutricionista acesse apenas seus próprios dados.
+- `nutritionist-auth`: Cadastro de conta do nutricionista (com empresa opcional e política mínima de senha), login/autenticação por e-mail/senha ou por conta Google, consulta do próprio perfil, e controle de acesso baseado em sessão para que cada nutricionista acesse apenas seus próprios dados.
 - `patient-management`: Cadastro, visualização, atualização e desativação de pacientes vinculados a um nutricionista específico.
 - `diet-prescription`: Criação, atualização e exportação em PDF de um plano alimentar/dieta ("receita") para um paciente.
 - `physical-assessment`: Registro de medidas de avaliação física (peso, dobras cutâneas em 7 pontos, circunferências) por paciente, mantendo histórico e permitindo comparação de avaliações ao longo do tempo.
