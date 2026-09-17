@@ -1,33 +1,33 @@
 # Design
 
-## Context
+## Contexto
 
-This is the first change in a greenfield specs repository (`nutri-specs`). There is no existing codebase, backend, or frontend yet — these specs are the source that will later drive separate frontend and backend implementation specs/repos. See proposal.md - Why for the motivation.
+Esta é a primeira mudança em um repositório de especificações greenfield (`nutri-specs`). Ainda não existe uma base de código, backend ou frontend — estas especificações são a fonte que futuramente vai orientar especificações de implementação separadas de frontend e backend/repositórios. Veja proposal.md - Por Que para a motivação.
 
-The four capabilities (`nutritionist-auth`, `patient-management`, `diet-prescription`, `physical-assessment`) share one domain model and are being specified together because they depend on each other end to end: a patient belongs to a nutritionist, and both diet plans and physical assessments belong to a patient.
+As quatro capacidades (`nutritionist-auth`, `patient-management`, `diet-prescription`, `physical-assessment`) compartilham um único modelo de domínio e estão sendo especificadas juntas porque dependem umas das outras de ponta a ponta: um paciente pertence a um nutricionista, e tanto os planos alimentares quanto as avaliações físicas pertencem a um paciente.
 
-## Goals / Non-Goals
+## Objetivos / Não Objetivos
 
-**Goals:**
-- Establish a single, consistent domain model (Nutritionist, Patient, Diet Plan, Physical Assessment) that later frontend/backend specs can build on without re-deriving domain rules.
-- Keep every capability's data scoped to the owning nutritionist (multi-tenant by nutritionist).
-- Keep the physical assessment protocol concrete (7-site Pollock skinfolds + a fixed set of circumferences) so downstream specs have an unambiguous data shape to implement against.
+**Objetivos:**
+- Estabelecer um modelo de domínio único e consistente (Nutricionista, Paciente, Plano Alimentar, Avaliação Física) sobre o qual futuras especificações de frontend/backend possam se apoiar sem precisar redefinir as regras de domínio.
+- Manter os dados de cada capacidade sempre vinculados ao nutricionista proprietário (multi-tenant por nutricionista).
+- Manter o protocolo de avaliação física concreto (dobras cutâneas de Pollock em 7 pontos + um conjunto fixo de circunferências) para que as especificações seguintes tenham um formato de dados inequívoco para implementar.
 
-**Non-Goals:**
-- Not specifying calculated body-composition metrics (e.g., body fat percentage formulas) — only raw measurement capture and comparison are in scope for this change.
-- Not specifying the PDF's visual layout/branding — only its required content (patient, nutritionist, meals, food items, quantities).
-- Not specifying password reset, email verification, or multi-factor authentication flows — only registration, login, logout, and per-nutritionist data isolation.
-- Not specifying frontend or backend implementation technology choices — that belongs to the downstream frontend/backend specs this repo will generate later.
+**Não Objetivos:**
+- Não especificar métricas calculadas de composição corporal (ex.: fórmulas de percentual de gordura corporal) — apenas a captura e comparação de medidas brutas estão no escopo desta mudança.
+- Não especificar o layout visual/identidade do PDF — apenas seu conteúdo obrigatório (paciente, nutricionista, refeições, itens alimentares, quantidades).
+- Não especificar fluxos de recuperação de senha, verificação de e-mail ou autenticação multifator — apenas cadastro, login, logout e isolamento de dados por nutricionista.
+- Não especificar escolhas de tecnologia de implementação de frontend ou backend — isso pertence às especificações de frontend/backend subsequentes que este repositório vai gerar depois.
 
-## Decisions
+## Decisões
 
-- **Ownership model**: Every Patient record is owned by exactly one Nutritionist; every Diet Plan and Physical Assessment is owned by exactly one Patient (and transitively by that patient's nutritionist). This keeps the authorization rule in `nutritionist-auth` simple and uniform across capabilities: a nutritionist may only read/write records that chain back to their own account.
-- **Assessment protocol fixed to 7-site Pollock + standard circumferences**: chosen (per user decision) over an open/flexible field list so the spec gives downstream implementations a concrete, testable data shape instead of an arbitrary key-value structure. Alternative considered: fully flexible user-defined measurement fields — rejected for this change because it would push the data-modeling decision downstream and make comparison behavior harder to specify precisely.
-- **Deactivation instead of deletion for patients**: patients are soft-deactivated (per `patient-management`) rather than deleted, so a patient's diet and assessment history is never lost even if the nutritionist stops actively treating them.
-- **Diet plan history is append-only from the patient's perspective**: updating a diet plan edits it in place (per `diet-prescription`); creating a new prescription over time is what produces history, mirroring how physical assessments accumulate history. This keeps the two capabilities' history semantics consistent.
+- **Modelo de propriedade**: Todo registro de Paciente pertence a exatamente um Nutricionista; todo Plano Alimentar e Avaliação Física pertence a exatamente um Paciente (e, transitivamente, ao nutricionista daquele paciente). Isso mantém a regra de autorização em `nutritionist-auth` simples e uniforme entre as capacidades: um nutricionista só pode ler/escrever registros que remontem à sua própria conta.
+- **Protocolo de avaliação fixado em Pollock 7 dobras + circunferências padrão**: escolhido (conforme decisão do usuário) em vez de uma lista de campos aberta/flexível, para que a especificação forneça às implementações seguintes um formato de dados concreto e testável, em vez de uma estrutura arbitrária de chave-valor. Alternativa considerada: campos de medida totalmente flexíveis definidos pelo usuário — rejeitada para esta mudança porque empurraria a decisão de modelagem de dados para depois e tornaria o comportamento de comparação mais difícil de especificar com precisão.
+- **Desativação em vez de exclusão para pacientes**: pacientes são desativados de forma reversível (soft-delete, conforme `patient-management`) em vez de excluídos, para que o histórico de dieta e avaliação de um paciente nunca seja perdido mesmo que o nutricionista pare de atendê-lo ativamente.
+- **Histórico de plano alimentar é append-only do ponto de vista do paciente**: atualizar um plano alimentar o edita no lugar (conforme `diet-prescription`); criar uma nova prescrição ao longo do tempo é o que gera histórico, espelhando como as avaliações físicas acumulam histórico. Isso mantém a semântica de histórico das duas capacidades consistente.
 
-## Risks / Trade-offs
+## Riscos / Trade-offs
 
-- [Fixed assessment protocol may not match every nutritionist's practice] → Accepted for this version per explicit user decision; a future change can widen the model if needed.
-- [PDF export requirements are content-only, not visual] → Downstream frontend/backend specs will need to add layout/branding decisions; flagged as a non-goal here rather than left implicit.
-- [No password-recovery/account-security flows specified yet] → Acceptable for an initial core-features change; should be scoped explicitly as a follow-up change before production use.
+- [Protocolo de avaliação fixo pode não corresponder à prática de todo nutricionista] → Aceito para esta versão conforme decisão explícita do usuário; uma mudança futura pode ampliar o modelo se necessário.
+- [Requisitos de exportação em PDF são apenas de conteúdo, não visuais] → As especificações de frontend/backend subsequentes precisarão adicionar decisões de layout/identidade visual; sinalizado aqui como um não objetivo em vez de deixado implícito.
+- [Ainda não há fluxos de recuperação de senha/segurança de conta especificados] → Aceitável para uma mudança inicial de funcionalidades centrais; deve ser escopado explicitamente como uma mudança de acompanhamento antes do uso em produção.

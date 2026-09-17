@@ -1,47 +1,47 @@
-# Spec Delta
+# Delta da Especificação
 
 ## Purpose
 
-Provide nutritionist account registration and authentication so each nutritionist can securely access the system and only ever see and manage their own patients and data.
+Fornecer cadastro de conta e autenticação para nutricionistas, para que cada nutricionista possa acessar o sistema com segurança e ver e gerenciar apenas seus próprios pacientes e dados.
 
 ## ADDED Requirements
 
-### Requirement: Nutritionist Registration
-The system SHALL allow a new nutritionist to create an account by providing at minimum a full name, a unique email address, and a password.
+### Requirement: Cadastro de Nutricionista
+O sistema DEVE permitir que um novo nutricionista crie uma conta informando, no mínimo, nome completo, um endereço de e-mail único e uma senha.
 
-#### Scenario: Successful registration
-- **WHEN** a visitor submits a registration form with a full name, an email not already in use, and a valid password
-- **THEN** the system creates a nutritionist account and confirms the account was created
+#### Scenario: Cadastro bem-sucedido
+- **WHEN** um visitante envia um formulário de cadastro com nome completo, um e-mail ainda não utilizado e uma senha válida
+- **THEN** o sistema cria a conta do nutricionista e confirma que a conta foi criada
 
-#### Scenario: Duplicate email rejected
-- **WHEN** a visitor submits a registration with an email address that already belongs to an existing nutritionist account
-- **THEN** the system rejects the registration and returns an error indicating the email is already in use
+#### Scenario: E-mail duplicado rejeitado
+- **WHEN** um visitante envia um cadastro com um endereço de e-mail que já pertence a uma conta de nutricionista existente
+- **THEN** o sistema rejeita o cadastro e retorna um erro indicando que o e-mail já está em uso
 
-### Requirement: Nutritionist Login
-The system SHALL allow a registered nutritionist to authenticate using their email and password and receive an authenticated session.
+### Requirement: Login do Nutricionista
+O sistema DEVE permitir que um nutricionista cadastrado se autentique usando seu e-mail e senha e receba uma sessão autenticada.
 
-#### Scenario: Successful login
-- **WHEN** a nutritionist submits their correct email and password
-- **THEN** the system grants an authenticated session and allows access to the nutritionist's own data
+#### Scenario: Login bem-sucedido
+- **WHEN** um nutricionista envia seu e-mail e senha corretos
+- **THEN** o sistema concede uma sessão autenticada e permite acesso aos próprios dados do nutricionista
 
-#### Scenario: Invalid credentials rejected
-- **WHEN** a nutritionist submits an email/password combination that does not match a registered account
-- **THEN** the system rejects the login attempt and does not create a session
+#### Scenario: Credenciais inválidas rejeitadas
+- **WHEN** um nutricionista envia uma combinação de e-mail/senha que não corresponde a nenhuma conta cadastrada
+- **THEN** o sistema rejeita a tentativa de login e não cria uma sessão
 
-### Requirement: Nutritionist Logout
-The system SHALL allow an authenticated nutritionist to end their session.
+### Requirement: Logout do Nutricionista
+O sistema DEVE permitir que um nutricionista autenticado encerre sua sessão.
 
-#### Scenario: Successful logout
-- **WHEN** an authenticated nutritionist requests to log out
-- **THEN** the system invalidates the current session so it can no longer be used to access data
+#### Scenario: Logout bem-sucedido
+- **WHEN** um nutricionista autenticado solicita encerrar a sessão
+- **THEN** o sistema invalida a sessão atual, de forma que ela não possa mais ser usada para acessar dados
 
-### Requirement: Per-Nutritionist Data Isolation
-The system SHALL scope every patient, diet plan, and physical assessment to the nutritionist who created it, and SHALL only allow an authenticated nutritionist to read or modify records they own.
+### Requirement: Isolamento de Dados por Nutricionista
+O sistema DEVE vincular todo paciente, plano alimentar e avaliação física ao nutricionista que o criou, e DEVE permitir que um nutricionista autenticado leia ou modifique apenas registros que ele possui.
 
-#### Scenario: Nutritionist cannot access another nutritionist's patient
-- **WHEN** an authenticated nutritionist requests a patient, diet plan, or physical assessment owned by a different nutritionist
-- **THEN** the system denies access and does not return that record's data
+#### Scenario: Nutricionista não pode acessar paciente de outro nutricionista
+- **WHEN** um nutricionista autenticado solicita um paciente, plano alimentar ou avaliação física pertencente a outro nutricionista
+- **THEN** o sistema nega o acesso e não retorna os dados desse registro
 
-#### Scenario: Unauthenticated access denied
-- **WHEN** a request to view or modify a patient, diet plan, or physical assessment is made without a valid authenticated session
-- **THEN** the system denies the request
+#### Scenario: Acesso não autenticado negado
+- **WHEN** uma solicitação para visualizar ou modificar um paciente, plano alimentar ou avaliação física é feita sem uma sessão autenticada válida
+- **THEN** o sistema nega a solicitação

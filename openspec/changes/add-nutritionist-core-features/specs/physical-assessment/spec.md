@@ -1,40 +1,40 @@
-# Spec Delta
+# Delta da Especificação
 
 ## Purpose
 
-Allow a nutritionist to record a patient's physical assessment measurements over time and compare assessments against each other to evidence the patient's progress.
+Permitir que um nutricionista registre as medidas de avaliação física de um paciente ao longo do tempo e compare avaliações entre si para evidenciar a evolução do paciente.
 
 ## ADDED Requirements
 
-### Requirement: Record Physical Assessment
-The system SHALL allow an authenticated nutritionist to record a dated physical assessment for a patient they own, capturing the patient's weight, the seven skinfold measurements of the Pollock protocol (triceps, subscapular, midaxillary, chest/pectoral, suprailiac, abdominal, and thigh), and body segment circumferences (arm, forearm, chest, waist, abdomen, hip, thigh, and calf).
+### Requirement: Registro de Avaliação Física
+O sistema DEVE permitir que um nutricionista autenticado registre uma avaliação física datada para um paciente que possui, capturando o peso do paciente, as sete medidas de dobras cutâneas do protocolo de Pollock (tríceps, subescapular, axilar média, peitoral/tórax, suprailíaca, abdominal e coxa), e as circunferências de segmentos corporais (braço, antebraço, tórax, cintura, abdômen, quadril, coxa e panturrilha).
 
-#### Scenario: Successful assessment recording
-- **WHEN** an authenticated nutritionist submits a new physical assessment for a patient they own, including the assessment date and weight
-- **THEN** the system creates the assessment record with all submitted measurements associated with that patient
+#### Scenario: Registro de avaliação bem-sucedido
+- **WHEN** um nutricionista autenticado envia uma nova avaliação física para um paciente que possui, incluindo a data da avaliação e o peso
+- **THEN** o sistema cria o registro de avaliação com todas as medidas enviadas associado a esse paciente
 
-#### Scenario: Missing weight rejected
-- **WHEN** an authenticated nutritionist submits a new physical assessment without a weight value
-- **THEN** the system rejects the request and indicates that weight is required
+#### Scenario: Peso ausente rejeitado
+- **WHEN** um nutricionista autenticado envia uma nova avaliação física sem um valor de peso
+- **THEN** o sistema rejeita a solicitação e indica que o peso é obrigatório
 
-#### Scenario: Negative or zero measurement rejected
-- **WHEN** an authenticated nutritionist submits a physical assessment containing a negative or zero value for weight, a skinfold, or a circumference
-- **THEN** the system rejects the request and indicates which measurement is invalid
+#### Scenario: Medida negativa ou zero rejeitada
+- **WHEN** um nutricionista autenticado envia uma avaliação física contendo um valor negativo ou zero para peso, uma dobra cutânea ou uma circunferência
+- **THEN** o sistema rejeita a solicitação e indica qual medida é inválida
 
-### Requirement: Assessment History per Patient
-The system SHALL allow an authenticated nutritionist to view the full chronological history of physical assessments recorded for a patient they own.
+### Requirement: Histórico de Avaliações por Paciente
+O sistema DEVE permitir que um nutricionista autenticado visualize o histórico cronológico completo de avaliações físicas registradas para um paciente que possui.
 
-#### Scenario: View assessment history
-- **WHEN** an authenticated nutritionist requests the physical assessment history for a patient they own
-- **THEN** the system returns all recorded assessments for that patient, ordered from oldest to most recent
+#### Scenario: Visualizar histórico de avaliações
+- **WHEN** um nutricionista autenticado solicita o histórico de avaliação física de um paciente que possui
+- **THEN** o sistema retorna todas as avaliações registradas para esse paciente, ordenadas da mais antiga para a mais recente
 
-### Requirement: Compare Two Assessments
-The system SHALL allow an authenticated nutritionist to select two physical assessments of the same patient and view the difference between them for weight, each skinfold, and each circumference.
+### Requirement: Comparação de Duas Avaliações
+O sistema DEVE permitir que um nutricionista autenticado selecione duas avaliações físicas do mesmo paciente e visualize a diferença entre elas para o peso, cada dobra cutânea e cada circunferência.
 
-#### Scenario: Successful comparison
-- **WHEN** an authenticated nutritionist selects two physical assessments belonging to the same patient they own
-- **THEN** the system returns, for weight, each skinfold, and each circumference, the value from each selected assessment and the difference between them
+#### Scenario: Comparação bem-sucedida
+- **WHEN** um nutricionista autenticado seleciona duas avaliações físicas pertencentes ao mesmo paciente que possui
+- **THEN** o sistema retorna, para peso, cada dobra cutânea e cada circunferência, o valor de cada avaliação selecionada e a diferença entre elas
 
-#### Scenario: Comparison across different patients denied
-- **WHEN** an authenticated nutritionist attempts to compare two physical assessments that do not belong to the same patient
-- **THEN** the system rejects the request
+#### Scenario: Comparação entre pacientes diferentes negada
+- **WHEN** um nutricionista autenticado tenta comparar duas avaliações físicas que não pertencem ao mesmo paciente
+- **THEN** o sistema rejeita a solicitação

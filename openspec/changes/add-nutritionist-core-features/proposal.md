@@ -1,28 +1,28 @@
-# Proposal
+# Proposta
 
-## Why
+## Por Que
 
-Nutritionists currently manage patient records, diet plans, and physical assessment history through disconnected tools (spreadsheets, paper forms, generic documents). This change defines the core system specs needed to give a nutritionist a single system to register patients, prescribe diets that can be handed to patients as a PDF, and track physical assessment measurements over time to evidence results. These specs are the foundation this repo will later use to generate frontend and backend implementation specs in other repositories.
+Atualmente, nutricionistas gerenciam cadastros de pacientes, planos alimentares e histórico de avaliação física por meio de ferramentas desconectadas (planilhas, formulários em papel, documentos genéricos). Esta mudança define as especificações centrais do sistema necessárias para que um nutricionista tenha um único sistema para cadastrar pacientes, prescrever dietas que possam ser entregues aos pacientes em PDF, e acompanhar medidas de avaliação física ao longo do tempo para evidenciar resultados. Essas especificações são a base que este repositório usará depois para gerar as especificações de implementação de frontend e backend em outros repositórios.
 
-## What Changes
+## O Que Muda
 
-- Add nutritionist accounts with authentication; each nutritionist can only see and manage their own patients (multi-tenant).
-- Add patient registration and management (create, view, update, deactivate patients) scoped to the owning nutritionist.
-- Add diet prescription: a nutritionist can create a diet/meal plan ("receita") for a patient, composed of meals and food items, and export it as a PDF document.
-- Add physical assessment tracking: record weight, skinfold measurements (7-site Pollock protocol), and body segment circumferences for a patient, keep a full history of assessments, and compare any two assessments to surface change over time.
+- Adiciona contas de nutricionista com autenticação; cada nutricionista só pode ver e gerenciar seus próprios pacientes (multi-tenant).
+- Adiciona cadastro e gestão de pacientes (criar, visualizar, atualizar, desativar pacientes) vinculados ao nutricionista responsável.
+- Adiciona prescrição de dieta: um nutricionista pode criar um plano alimentar/dieta ("receita") para um paciente, composto por refeições e itens alimentares, e exportá-lo como um documento PDF.
+- Adiciona acompanhamento de avaliação física: registrar peso, medidas de dobras cutâneas (protocolo de Pollock de 7 dobras) e circunferências de segmentos corporais para um paciente, manter um histórico completo de avaliações, e comparar duas avaliações quaisquer para evidenciar a evolução ao longo do tempo.
 
-## Capabilities
+## Capacidades
 
-### New Capabilities
-- `nutritionist-auth`: Nutritionist account registration, login/authentication, and session-based access control so each nutritionist only accesses their own data.
-- `patient-management`: Registering, viewing, updating, and deactivating patients under a specific nutritionist.
-- `diet-prescription`: Creating, updating, and PDF-exporting a diet/meal plan ("receita") for a patient.
-- `physical-assessment`: Recording physical assessment measurements (weight, 7-site skinfolds, circumferences) per patient, retaining history, and comparing assessments over time.
+### Novas Capacidades
+- `nutritionist-auth`: Cadastro de conta do nutricionista, login/autenticação, e controle de acesso baseado em sessão para que cada nutricionista acesse apenas seus próprios dados.
+- `patient-management`: Cadastro, visualização, atualização e desativação de pacientes vinculados a um nutricionista específico.
+- `diet-prescription`: Criação, atualização e exportação em PDF de um plano alimentar/dieta ("receita") para um paciente.
+- `physical-assessment`: Registro de medidas de avaliação física (peso, dobras cutâneas em 7 pontos, circunferências) por paciente, mantendo histórico e permitindo comparação de avaliações ao longo do tempo.
 
-### Modified Capabilities
-None — this is the first change in the project; no existing specs to modify.
+### Capacidades Modificadas
+Nenhuma — esta é a primeira mudança do projeto; não há especificações existentes para modificar.
 
-## Impact
+## Impacto
 
-- Establishes the initial domain model for the system: Nutritionist, Patient, Diet Plan (Receita), Meal/Food Item, Physical Assessment.
-- No existing code, APIs, or systems are affected — this is a greenfield specification effort that will later drive frontend and backend implementation in downstream repositories.
+- Estabelece o modelo de domínio inicial do sistema: Nutricionista, Paciente, Plano Alimentar (Receita), Refeição/Item Alimentar, Avaliação Física.
+- Nenhum código, API ou sistema existente é afetado — este é um esforço de especificação greenfield que posteriormente orientará a implementação de frontend e backend em repositórios subsequentes.

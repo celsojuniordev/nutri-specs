@@ -1,43 +1,43 @@
-# Spec Delta
+# Delta da Especificação
 
 ## Purpose
 
-Allow a nutritionist to prescribe a diet plan ("receita") for a patient, made up of meals and food items, and to hand that plan to the patient as an exported PDF document.
+Permitir que um nutricionista prescreva um plano alimentar ("receita") para um paciente, composto por refeições e itens alimentares, e entregue esse plano ao paciente como um documento PDF exportado.
 
 ## ADDED Requirements
 
-### Requirement: Create Diet Plan
-The system SHALL allow an authenticated nutritionist to create a diet plan for a patient they own, composed of one or more meals, each containing one or more food items with a quantity and unit of measure.
+### Requirement: Criação de Plano Alimentar
+O sistema DEVE permitir que um nutricionista autenticado crie um plano alimentar para um paciente que possui, composto por uma ou mais refeições, cada uma contendo um ou mais itens alimentares com quantidade e unidade de medida.
 
-#### Scenario: Successful diet plan creation
-- **WHEN** an authenticated nutritionist submits a new diet plan for a patient they own, including at least one meal with at least one food item
-- **THEN** the system creates the diet plan associated with that patient and confirms creation
+#### Scenario: Criação de plano alimentar bem-sucedida
+- **WHEN** um nutricionista autenticado envia um novo plano alimentar para um paciente que possui, incluindo pelo menos uma refeição com pelo menos um item alimentar
+- **THEN** o sistema cria o plano alimentar associado a esse paciente e confirma a criação
 
-#### Scenario: Diet plan without meals rejected
-- **WHEN** an authenticated nutritionist submits a new diet plan with no meals
-- **THEN** the system rejects the request and indicates that at least one meal is required
+#### Scenario: Plano alimentar sem refeições rejeitado
+- **WHEN** um nutricionista autenticado envia um novo plano alimentar sem nenhuma refeição
+- **THEN** o sistema rejeita a solicitação e indica que pelo menos uma refeição é obrigatória
 
-### Requirement: Update Diet Plan
-The system SHALL allow an authenticated nutritionist to update a diet plan they created, including adding, editing, or removing meals and food items.
+### Requirement: Atualização de Plano Alimentar
+O sistema DEVE permitir que um nutricionista autenticado atualize um plano alimentar que criou, incluindo adicionar, editar ou remover refeições e itens alimentares.
 
-#### Scenario: Successful diet plan update
-- **WHEN** an authenticated nutritionist submits changes to a diet plan they own
-- **THEN** the system saves the updated meals and food items and returns the updated diet plan
+#### Scenario: Atualização de plano alimentar bem-sucedida
+- **WHEN** um nutricionista autenticado envia alterações para um plano alimentar que possui
+- **THEN** o sistema salva as refeições e itens alimentares atualizados e retorna o plano alimentar atualizado
 
-### Requirement: Diet Plan History per Patient
-The system SHALL allow an authenticated nutritionist to view the list of diet plans previously created for a patient they own, ordered by creation date.
+### Requirement: Histórico de Planos Alimentares por Paciente
+O sistema DEVE permitir que um nutricionista autenticado visualize a lista de planos alimentares criados anteriormente para um paciente que possui, ordenados por data de criação.
 
-#### Scenario: View diet plan history
-- **WHEN** an authenticated nutritionist requests the diet plans for a patient they own
-- **THEN** the system returns all diet plans created for that patient, ordered from most recent to oldest
+#### Scenario: Visualizar histórico de planos alimentares
+- **WHEN** um nutricionista autenticado solicita os planos alimentares de um paciente que possui
+- **THEN** o sistema retorna todos os planos alimentares criados para esse paciente, ordenados do mais recente para o mais antigo
 
-### Requirement: Export Diet Plan as PDF
-The system SHALL allow an authenticated nutritionist to export a diet plan they own as a PDF document containing the patient's name, the nutritionist's name, and every meal with its food items and quantities.
+### Requirement: Exportação do Plano Alimentar em PDF
+O sistema DEVE permitir que um nutricionista autenticado exporte um plano alimentar que possui como um documento PDF contendo o nome do paciente, o nome do nutricionista, e todas as refeições com seus itens alimentares e quantidades.
 
-#### Scenario: Successful PDF export
-- **WHEN** an authenticated nutritionist requests the PDF export of a diet plan they own
-- **THEN** the system generates a PDF document listing the patient's name, the nutritionist's name, and all meals with their food items and quantities, and makes it available for download
+#### Scenario: Exportação em PDF bem-sucedida
+- **WHEN** um nutricionista autenticado solicita a exportação em PDF de um plano alimentar que possui
+- **THEN** o sistema gera um documento PDF listando o nome do paciente, o nome do nutricionista, e todas as refeições com seus itens alimentares e quantidades, e o disponibiliza para download
 
-#### Scenario: Export of another nutritionist's diet plan denied
-- **WHEN** an authenticated nutritionist requests the PDF export of a diet plan owned by a different nutritionist
-- **THEN** the system denies the request
+#### Scenario: Exportação de plano alimentar de outro nutricionista negada
+- **WHEN** um nutricionista autenticado solicita a exportação em PDF de um plano alimentar pertencente a outro nutricionista
+- **THEN** o sistema nega a solicitação

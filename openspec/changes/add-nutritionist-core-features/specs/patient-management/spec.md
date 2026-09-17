@@ -1,47 +1,47 @@
-# Spec Delta
+# Delta da Especificação
 
 ## Purpose
 
-Allow a nutritionist to register and manage the patients under their own care, keeping each patient's basic and contact information up to date and searchable.
+Permitir que um nutricionista cadastre e gerencie os pacientes sob seus próprios cuidados, mantendo as informações básicas e de contato de cada paciente atualizadas e pesquisáveis.
 
 ## ADDED Requirements
 
-### Requirement: Patient Registration
-The system SHALL allow an authenticated nutritionist to register a new patient with at minimum a full name, birth date, and sex, associating the patient with that nutritionist.
+### Requirement: Cadastro de Paciente
+O sistema DEVE permitir que um nutricionista autenticado cadastre um novo paciente informando, no mínimo, nome completo, data de nascimento e sexo, associando o paciente a esse nutricionista.
 
-#### Scenario: Successful patient registration
-- **WHEN** an authenticated nutritionist submits a new patient's full name, birth date, and sex
-- **THEN** the system creates the patient record owned by that nutritionist and confirms creation
+#### Scenario: Cadastro de paciente bem-sucedido
+- **WHEN** um nutricionista autenticado envia o nome completo, data de nascimento e sexo de um novo paciente
+- **THEN** o sistema cria o registro do paciente vinculado a esse nutricionista e confirma a criação
 
-#### Scenario: Missing required field rejected
-- **WHEN** an authenticated nutritionist submits a new patient without a required field (full name, birth date, or sex)
-- **THEN** the system rejects the request and indicates which field is missing
+#### Scenario: Campo obrigatório ausente rejeitado
+- **WHEN** um nutricionista autenticado envia um novo paciente sem um campo obrigatório (nome completo, data de nascimento ou sexo)
+- **THEN** o sistema rejeita a solicitação e indica qual campo está ausente
 
-### Requirement: Patient Listing and Viewing
-The system SHALL allow an authenticated nutritionist to list and view the details of the patients they own.
+### Requirement: Listagem e Visualização de Pacientes
+O sistema DEVE permitir que um nutricionista autenticado liste e visualize os detalhes dos pacientes que possui.
 
-#### Scenario: List own active patients
-- **WHEN** an authenticated nutritionist requests their patient list
-- **THEN** the system returns only active patients owned by that nutritionist
+#### Scenario: Listar pacientes ativos próprios
+- **WHEN** um nutricionista autenticado solicita sua lista de pacientes
+- **THEN** o sistema retorna apenas os pacientes ativos pertencentes a esse nutricionista
 
-#### Scenario: View patient detail
-- **WHEN** an authenticated nutritionist requests the detail of a patient they own
-- **THEN** the system returns that patient's registered information
+#### Scenario: Visualizar detalhe do paciente
+- **WHEN** um nutricionista autenticado solicita o detalhe de um paciente que possui
+- **THEN** o sistema retorna as informações cadastradas desse paciente
 
-### Requirement: Patient Update
-The system SHALL allow an authenticated nutritionist to update the registered information of a patient they own.
+### Requirement: Atualização de Paciente
+O sistema DEVE permitir que um nutricionista autenticado atualize as informações cadastradas de um paciente que possui.
 
-#### Scenario: Successful update
-- **WHEN** an authenticated nutritionist submits updated information for a patient they own
-- **THEN** the system saves the updated information and returns the updated patient record
+#### Scenario: Atualização bem-sucedida
+- **WHEN** um nutricionista autenticado envia informações atualizadas para um paciente que possui
+- **THEN** o sistema salva as informações atualizadas e retorna o registro do paciente atualizado
 
-### Requirement: Patient Deactivation
-The system SHALL allow an authenticated nutritionist to deactivate a patient they own without deleting the patient's historical data, and SHALL exclude deactivated patients from the default active patient list.
+### Requirement: Desativação de Paciente
+O sistema DEVE permitir que um nutricionista autenticado desative um paciente que possui sem excluir os dados históricos do paciente, e DEVE excluir pacientes desativados da lista padrão de pacientes ativos.
 
-#### Scenario: Deactivate a patient
-- **WHEN** an authenticated nutritionist deactivates a patient they own
-- **THEN** the system marks the patient as inactive, removes them from the default active patient list, and retains the patient's diet plans and physical assessment history
+#### Scenario: Desativar um paciente
+- **WHEN** um nutricionista autenticado desativa um paciente que possui
+- **THEN** o sistema marca o paciente como inativo, remove-o da lista padrão de pacientes ativos e preserva os planos alimentares e o histórico de avaliação física do paciente
 
-#### Scenario: Reactivate a patient
-- **WHEN** an authenticated nutritionist reactivates a previously deactivated patient they own
-- **THEN** the system marks the patient as active again and includes them in the default active patient list
+#### Scenario: Reativar um paciente
+- **WHEN** um nutricionista autenticado reativa um paciente previamente desativado que possui
+- **THEN** o sistema marca o paciente como ativo novamente e o inclui na lista padrão de pacientes ativos

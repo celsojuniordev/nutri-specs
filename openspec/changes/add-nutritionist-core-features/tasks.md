@@ -1,17 +1,17 @@
-# Tasks
+# Tarefas
 
-## 1. Specification Validation
+## 1. Validação da Especificação
 
-- [ ] 1.1 Run `openspec validate add-nutritionist-core-features --strict` and verify it reports no errors
-- [ ] 1.2 Cross-review the four spec deltas (`nutritionist-auth`, `patient-management`, `diet-prescription`, `physical-assessment`) together and verify no contradicting requirements exist between them (e.g., ownership rules stated in `nutritionist-auth` match how `patient-management`, `diet-prescription`, and `physical-assessment` describe access to their records)
-- [ ] 1.3 Verify every requirement in all four spec deltas has at least one success-path scenario and at least one rejection/error-path scenario, and add any missing scenario found
+- [ ] 1.1 Executar `openspec validate add-nutritionist-core-features` e verificar que não reporta erros (os avisos de `--strict` pedindo "SHALL/MUST" literal são uma verificação específica para specs em inglês e não se aplicam aqui, já que as specs deste projeto são escritas em PT-BR)
+- [ ] 1.2 Revisar em conjunto os quatro deltas de especificação (`nutritionist-auth`, `patient-management`, `diet-prescription`, `physical-assessment`) e verificar que não existem requisitos contraditórios entre eles (ex.: as regras de propriedade definidas em `nutritionist-auth` correspondem a como `patient-management`, `diet-prescription` e `physical-assessment` descrevem o acesso aos seus registros)
+- [ ] 1.3 Verificar que todo requisito nos quatro deltas de especificação possui pelo menos um cenário de caminho de sucesso e pelo menos um cenário de rejeição/erro, e adicionar qualquer cenário faltante encontrado
 
-## 2. Domain Model Consolidation
+## 2. Consolidação do Modelo de Domínio
 
-- [ ] 2.1 Document the consolidated domain model (Nutritionist, Patient, Diet Plan, Meal, Food Item, Physical Assessment) and the ownership chain between them, and verify every field named in the document traces back to a specific requirement in one of the four spec deltas
-- [ ] 2.2 Document the required fields and validation rules for each entity (patient required fields; assessment required weight and positive-value rule for weight/skinfolds/circumferences; diet plan's meal/food-item structure and PDF content requirements), and verify each rule cites the requirement it comes from
+- [ ] 2.1 Documentar o modelo de domínio consolidado (Nutricionista, Paciente, Plano Alimentar, Refeição, Item Alimentar, Avaliação Física) e a cadeia de propriedade entre eles, e verificar que todo campo citado no documento remonta a um requisito específico em um dos quatro deltas de especificação
+- [ ] 2.2 Documentar os campos obrigatórios e regras de validação de cada entidade (campos obrigatórios do paciente; peso obrigatório e regra de valor positivo para peso/dobras cutâneas/circunferências na avaliação; estrutura de refeições/itens alimentares e requisitos de conteúdo do PDF do plano alimentar), e verificar que cada regra cita o requisito de onde vem
 
-## 3. Downstream Handoff Readiness
+## 3. Prontidão para Repasse (Handoff)
 
-- [ ] 3.1 Run `openspec status --change add-nutritionist-core-features` and verify `proposal`, `specs`, `design`, and `tasks` all report status `done`
-- [ ] 3.2 Confirm this change's proposal, specs, and design are sufficient to start generating the downstream frontend and backend specs (per the domain model and validation rules documented in section 2) and record any gap found for a follow-up change
+- [ ] 3.1 Executar `openspec status --change add-nutritionist-core-features` e verificar que `proposal`, `specs`, `design` e `tasks` reportam status `done`
+- [ ] 3.2 Confirmar que a proposta, as especificações e o design desta mudança são suficientes para começar a gerar as especificações de frontend e backend subsequentes (conforme o modelo de domínio e as regras de validação documentadas na seção 2) e registrar qualquer lacuna encontrada para uma mudança de acompanhamento
