@@ -7,15 +7,15 @@ Fornecer cadastro de conta e autenticação para nutricionistas, para que cada n
 ## ADDED Requirements
 
 ### Requirement: Cadastro de Nutricionista
-O sistema DEVE permitir que um novo nutricionista crie uma conta informando, no mínimo, nome completo, um endereço de e-mail e uma senha que atenda a uma política mínima de segurança (pelo menos 8 caracteres, combinando letra e número), e, opcionalmente, o nome da empresa/clínica em que atua. O sistema DEVE tratar o e-mail de forma única e case-insensitive, considerando e-mails que diferem apenas em maiúsculas/minúsculas como o mesmo e-mail para fins de duplicidade.
+O sistema DEVE permitir que um novo nutricionista crie uma conta informando, no mínimo, nome completo, um endereço de e-mail e uma senha que atenda a uma política mínima de segurança (pelo menos 8 caracteres, combinando letra e número), e, opcionalmente, o nome da empresa/clínica em que atua. O sistema DEVE tratar o e-mail de forma única e case-insensitive, considerando e-mails que diferem apenas em maiúsculas/minúsculas como o mesmo e-mail para fins de duplicidade. O nome, e a empresa quando informada, não podem ser vazios nem conter apenas espaços em branco; um valor somente com espaços em branco é rejeitado como se o campo estivesse vazio. O cadastro apenas cria a conta e não concede uma sessão autenticada: o nutricionista precisa efetuar login separadamente após o cadastro (ver "Login do Nutricionista").
 
 #### Scenario: Cadastro bem-sucedido sem empresa
 - **WHEN** um visitante envia um formulário de cadastro com nome completo, um e-mail ainda não utilizado e uma senha que atende à política mínima, sem informar empresa
-- **THEN** o sistema cria a conta do nutricionista sem empresa associada e confirma que a conta foi criada
+- **THEN** o sistema cria a conta do nutricionista sem empresa associada e confirma que a conta foi criada, sem conceder uma sessão autenticada
 
 #### Scenario: Cadastro bem-sucedido com empresa
 - **WHEN** um visitante envia um formulário de cadastro com nome completo, um e-mail ainda não utilizado, uma senha que atende à política mínima, e o nome de uma empresa
-- **THEN** o sistema cria a conta do nutricionista com a empresa associada e confirma que a conta foi criada
+- **THEN** o sistema cria a conta do nutricionista com a empresa associada e confirma que a conta foi criada, sem conceder uma sessão autenticada
 
 #### Scenario: E-mail duplicado rejeitado
 - **WHEN** um visitante envia um cadastro com um endereço de e-mail que já pertence a uma conta de nutricionista existente, mesmo que a diferença esteja apenas em maiúsculas/minúsculas
@@ -24,6 +24,10 @@ O sistema DEVE permitir que um novo nutricionista crie uma conta informando, no 
 #### Scenario: Senha abaixo da política mínima rejeitada
 - **WHEN** um visitante envia um cadastro com uma senha menor que 8 caracteres ou que não combine letra e número
 - **THEN** o sistema rejeita o cadastro e indica que a senha não atende à política mínima
+
+#### Scenario: Nome ou empresa somente com espaços em branco rejeitado
+- **WHEN** um visitante envia um cadastro com o nome, ou com a empresa, contendo apenas espaços em branco
+- **THEN** o sistema rejeita o cadastro, tratando o campo como se estivesse vazio
 
 ### Requirement: Login do Nutricionista
 O sistema DEVE permitir que um nutricionista cadastrado se autentique usando seu e-mail e senha e receba uma sessão autenticada.
@@ -54,6 +58,10 @@ O sistema DEVE permitir que um nutricionista se autentique usando uma conta Goog
 #### Scenario: Login tradicional indisponível para conta criada só via Google
 - **WHEN** um nutricionista cuja conta foi criada exclusivamente via Google tenta entrar informando e-mail e senha
 - **THEN** o sistema rejeita a tentativa da mesma forma que credenciais inválidas, sem indicar que a conta existe apenas via Google
+
+#### Scenario: Token de identidade Google inválido rejeitado
+- **WHEN** um nutricionista tenta entrar com uma conta Google cujo token de identidade não pode ser validado (assinatura inválida, emissor diferente do esperado, ou token expirado)
+- **THEN** o sistema rejeita a tentativa, tratando-a como uma falha distinta de credenciais inválidas do login tradicional, e não concede acesso nem cria conta
 
 ### Requirement: Logout do Nutricionista
 O sistema DEVE permitir que um nutricionista autenticado encerre sua sessão.
